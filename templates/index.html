@@ -21,6 +21,22 @@
         .loading.active {
             display: flex;
         }
+        .text-area {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 12px;
+            padding: 40px;
+            border: 1px solid #e2e8f0;
+            min-height: 200px;
+        }
+        .custom-text {
+            min-height: 100px;
+        }
+        .marker-company { background-color: #34C759; }
+        .marker-position { background-color: #3498DB; }
+        .marker-duration { background-color: #9B59B6; }
+        .marker-start_date { background-color: #F7DC6F; }
+        .marker-today_date { background-color: #FFC5C5; }
+        .marker-custom { background-color: #FFA07A; }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
@@ -32,32 +48,73 @@
     </div>
 
     <div class="container mx-auto px-4 py-8">
-        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-6">
-            <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Générateur de Lettre de Motivation</h1>
+        <!-- Section Informations -->
+        <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-6">Informations</h2>
             
             <form id="letterForm" class="space-y-6">
-                <div>
-                    <label for="company_name" class="block text-sm font-medium text-gray-700">Nom de l'entreprise</label>
-                    <input type="text" id="company_name" name="company_name" required
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Entreprise :</label>
+                        <input type="text" id="company_name" name="company_name" required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Poste :</label>
+                        <input type="text" id="job_title" name="job_title" required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Durée :</label>
+                        <input type="text" id="duration" name="duration" required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Date de début :</label>
+                        <input type="text" id="start_date" name="start_date" required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Date du jour :</label>
+                        <input type="text" id="today_date" name="today_date" required
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
                 </div>
 
-                <div>
-                    <label for="job_title" class="block text-sm font-medium text-gray-700">Intitulé du poste</label>
-                    <input type="text" id="job_title" name="job_title" required
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                <div class="space-y-4">
+                    <label class="block text-sm font-medium text-gray-700">Paragraphe personnalisé :</label>
+                    <div class="flex space-x-4">
+                        <select id="template_select" class="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <option value="">Sélectionner un message...</option>
+                            <option value="enthusiasm">Enthousiasme</option>
+                            <option value="availability">Disponibilité</option>
+                            <option value="motivation">Motivation</option>
+                            <option value="expertise">Expertise</option>
+                            <option value="adaptation">Adaptation</option>
+                        </select>
+                        <button type="button" id="clear_custom" class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
+                            Effacer
+                        </button>
+                    </div>
+                    <textarea id="custom_text" name="custom_text" rows="4" 
+                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 custom-text"></textarea>
                 </div>
 
-                <div>
-                    <label for="skills" class="block text-sm font-medium text-gray-700">Compétences clés</label>
-                    <textarea id="skills" name="skills" rows="3" required
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
-                </div>
-
-                <div>
-                    <label for="motivation" class="block text-sm font-medium text-gray-700">Motivation</label>
-                    <textarea id="motivation" name="motivation" rows="5" required
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+                <div class="flex justify-between items-center">
+                    <div class="flex-grow">
+                        <label class="block text-sm font-medium text-gray-700">Nom du fichier :</label>
+                        <div class="flex space-x-4">
+                            <input type="text" id="filename" name="filename" 
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            <button type="button" id="choose_folder" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                                Choisir dossier
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="flex justify-center">
@@ -68,25 +125,98 @@
                 </div>
             </form>
         </div>
+
+        <!-- Section Résultat -->
+        <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">Lettre générée</h2>
+                <div class="flex space-x-4">
+                    <button id="export_word" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                        Exporter en Word
+                    </button>
+                </div>
+            </div>
+
+            <!-- Barre d'outils de mise en forme -->
+            <div class="flex space-x-4 mb-4 p-2 bg-gray-100 rounded">
+                <button class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300" onclick="toggleStyle('bold')">Gras</button>
+                <button class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300" onclick="toggleStyle('italic')">Italique</button>
+                <div class="flex space-x-1">
+                    <button class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300" onclick="setAlignment('center')">↔</button>
+                    <button class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300" onclick="setAlignment('right')">→</button>
+                    <button class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300" onclick="setAlignment('justify')">≡</button>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <label class="text-sm">Interligne:</label>
+                    <select id="line_spacing" class="rounded border-gray-300">
+                        <option value="1.0">1.0</option>
+                        <option value="1.15">1.15</option>
+                        <option value="1.5">1.5</option>
+                        <option value="2.0">2.0</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Zone de texte du résultat -->
+            <div id="result_text" class="text-area" contenteditable="true"></div>
+        </div>
     </div>
 
     <script>
+        // Templates prédéfinis
+        const templates = {
+            'enthusiasm': "Je suis particulièrement enthousiaste à l'idée de rejoindre votre équipe et de contribuer activement à vos projets innovants.",
+            'availability': "Je suis disponible immédiatement et prêt(e) à m'investir pleinement dans ce nouveau défi professionnel.",
+            'motivation': "Votre entreprise correspond parfaitement à mes aspirations professionnelles et je suis convaincu(e) de pouvoir apporter une réelle valeur ajoutée à votre équipe.",
+            'expertise': "Mon expertise dans ce domaine, acquise au fil de mes expériences, sera un atout précieux pour ce poste.",
+            'adaptation': "Ma capacité d'adaptation et mon envie d'apprendre me permettront de m'intégrer rapidement au sein de votre équipe."
+        };
+
+        // Gestionnaire de templates
+        document.getElementById('template_select').addEventListener('change', (e) => {
+            const template = templates[e.target.value];
+            if (template) {
+                document.getElementById('custom_text').value = template;
+            }
+        });
+
+        // Bouton effacer
+        document.getElementById('clear_custom').addEventListener('click', () => {
+            document.getElementById('custom_text').value = '';
+            document.getElementById('template_select').value = '';
+        });
+
+        // Fonctions de mise en forme
+        function toggleStyle(style) {
+            document.execCommand(style, false, null);
+        }
+
+        function setAlignment(align) {
+            document.execCommand('justify' + align.charAt(0).toUpperCase() + align.slice(1), false, null);
+        }
+
+        // Gestionnaire d'interligne
+        document.getElementById('line_spacing').addEventListener('change', (e) => {
+            document.getElementById('result_text').style.lineHeight = e.target.value;
+        });
+
+        // Formulaire principal
         document.getElementById('letterForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            // Afficher le loader
             document.querySelector('.loading').classList.add('active');
             
-            // Récupérer les données du formulaire
             const formData = {
                 company_name: document.getElementById('company_name').value,
                 job_title: document.getElementById('job_title').value,
-                skills: document.getElementById('skills').value,
-                motivation: document.getElementById('motivation').value
+                duration: document.getElementById('duration').value,
+                start_date: document.getElementById('start_date').value,
+                today_date: document.getElementById('today_date').value,
+                custom_text: document.getElementById('custom_text').value,
+                filename: document.getElementById('filename').value
             };
             
             try {
-                // Envoyer la requête au serveur
                 const response = await fetch('/generate', {
                     method: 'POST',
                     headers: {
@@ -98,17 +228,22 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    // Télécharger le fichier PDF
-                    window.location.href = `/download/${data.pdf_path.split('/').pop()}`;
+                    window.location.href = `/download/${data.file_path.split('/').pop()}`;
                 } else {
                     alert('Erreur lors de la génération de la lettre : ' + data.error);
                 }
             } catch (error) {
                 alert('Erreur lors de la génération de la lettre : ' + error);
             } finally {
-                // Cacher le loader
                 document.querySelector('.loading').classList.remove('active');
             }
+        });
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            // Définir la date du jour par défaut
+            const today = new Date().toLocaleDateString('fr-FR');
+            document.getElementById('today_date').value = today;
         });
     </script>
 </body>
